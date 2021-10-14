@@ -14,7 +14,7 @@ async function run(): Promise<void> {
 
     const { data: pullRequest } = await octokit.rest.pulls.get({ owner:owner, repo:repo , pull_number: parseInt(pr_number)})
 
-    core.setOutput('PR state is: ', pullRequest.state)
+    core.setOutput('pr_state: ', pullRequest.state)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
