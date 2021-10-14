@@ -46,7 +46,7 @@ function run() {
             const owner = github.context.repo.owner;
             const repo = github.context.repo.repo;
             const { data: pullRequest } = yield octokit.rest.pulls.get({ owner: owner, repo: repo, pull_number: parseInt(pr_number) });
-            core.setOutput('PR state is: ', pullRequest.state);
+            core.setOutput('pr_state', pullRequest.state);
         }
         catch (error) {
             if (error instanceof Error)
