@@ -1,11 +1,16 @@
-name: 'Your name here'
+name: 'first-git-action'
 description: 'Provide a description here'
 author: 'Your name or organization here'
 inputs:
-  milliseconds: # change this
+  pr_number: # change this
     required: true
     description: 'input description here'
-    default: 'default value if applicable'
+  GITHUB_TOKEN: # change this
+    required: true
+    description: 'input description here'
+outputs:
+  pr_state:
+    description: ''
 runs:
   using: 'node12'
   main: 'dist/index.js'
