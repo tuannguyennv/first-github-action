@@ -1,25 +1,20 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {wait} from './wait'
 
 
 async function run(): Promise<void> {
   try {
-    const pr_number: string = core.getInput('pr_number')
+    const pr_number = core.getInput('pr_number')
     
-    const token: string = ${{ secrets.GITHUB_TOKEN }}
+    const token = core.getInput('GITHUB_TOKEN')
     const octokit = github.getOctokit(token)
     
     const owner: string = github.context.repo.owner
     const repo: string = github.context.repo.repo
 
-    const res = octokit.rest.pulls.get({
-      owner,
-      repo,
-      pr_number,
-    });
+    const { data: pullRequest } = await octokit.rest.pulls.get({ owner:owner, repo:repo , pull_number: parseInt(pr_number)})
 
-    core.setOutput('PR state is: ', res.state)
+    core.setOutput('PR state is: ', pullRequest.state)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
